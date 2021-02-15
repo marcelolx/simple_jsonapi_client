@@ -1,4 +1,4 @@
-FROM ruby:2.4.0
+FROM ruby:2.6.6
 RUN apt-get update -qq
 RUN gem update bundler
 ENV BUNDLER_VERSION=2.0.2
