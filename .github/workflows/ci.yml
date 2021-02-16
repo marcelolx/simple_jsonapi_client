@@ -35,12 +35,25 @@ jobs:
           echo "deb http://apt.postgresql.org/pub/repos/apt/ `lsb_release -cs`-pgdg main" |sudo tee  /etc/apt/sources.list.d/pgdg.list
           sudo apt update
           sudo apt install postgresql-client-12
-          
+
       - name: Checkout code
         uses: actions/checkout@v2.3.4
+
+      - name: Setup Ruby
+        uses: ruby/setup-ruby@v1
+        with:
+          ruby-version: 2.6.6
+          bundler-cache: true
+
+      - name: Disable gems documentation download
+        run: |
+          echo 'gem: --no-document' >> ~/.gemrc
 
       - name: Setup project
         run: bin/setup
 
+      - name: Wait jsonapi app setup finishes
+        run: sleep 5
+
       - name: Run tests
-        run: rake
+        run: API_URL=localhost bundle exec rspec

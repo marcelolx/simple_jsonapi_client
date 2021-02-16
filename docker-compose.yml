@@ -1,29 +1,17 @@
 version: '3.8'
 
 services:
-  spec:
-    build: .
-    entrypoint: bin/wait_for_it jsonapi_app_spec:3001 -t 30 --
-    command: bundle exec rspec
-    volumes:
-      - .:/simple_jsonapi_client
-    depends_on:
-      - jsonapi_app_spec
-    environment:
-      API_URL: jsonapi_app_spec
-      API_PORT: 3001
   jsonapi_app_spec:
     build: ./spec/jsonapi_app
     volumes:
       - ./spec/jsonapi_app:/jsonapi_app
       - /jsonapi_app/tmp/
     command: |
-      bin/rails db:setup
-      bundle exec rails s -p 3001 -b '0.0.0.0'
+      bundle exec rails db:setup
+      bundle exec rails s
     ports:
-      - "3001:3001"
+      - "3000:3000"
     environment:
-      API_PORT: 3001
       PGHOST: host.docker.internal
     extra_hosts:
       - "host.docker.internal:host-gateway"
