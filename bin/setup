@@ -4,4 +4,3 @@ IFS=$'\n\t'
 set -vx
 
 docker-compose build
-bin/rails db:setup
