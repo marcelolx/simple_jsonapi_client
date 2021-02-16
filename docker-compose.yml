@@ -1,7 +1,16 @@
-version: '3'
+version: '3.8'
+
+networks:
+  database:
+    driver: bridge
+
 services:
   app_database:
     image: postgres
+    networks:
+      database:
+        aliases:
+          - database
   spec:
     build: .
     entrypoint: bin/wait_for_it jsonapi_app_spec:3001 -t 30 --
@@ -13,7 +22,9 @@ services:
     environment:
       API_URL: jsonapi_app_spec
       API_PORT: 3001
-      PGHOST: postgres://app_database:5432
+      PGHOST: app_database
+    networks:
+      - database
   jsonapi_app_spec:
     build: ./spec/jsonapi_app
     entrypoint: bin/wait_for_it app_database:5432 -t 30 --
@@ -23,9 +34,11 @@ services:
     command: bundle exec rails s -p 3001 -b '0.0.0.0'
     ports:
       - "3001:3001"
+    networks:
+      - database
     environment:
       API_PORT: 3001
-      PGHOST: postgres://app_database:5432
+      PGHOST: app_database
     depends_on:
       - app_database
   console:
@@ -39,6 +52,9 @@ services:
     environment:
       API_URL: jsonapi_app_console
       API_PORT: 3002
+      PGHOST: app_database
+    networks:
+      - database
   jsonapi_app_console:
     build: ./spec/jsonapi_app
     entrypoint: bin/wait_for_it app_database:5432 -t 30 --
@@ -46,9 +62,11 @@ services:
       - ./spec/jsonapi_app:/jsonapi_app
       - /jsonapi_app/tmp/
     command: bundle exec rails s -p 3002 -b '0.0.0.0'
+    environment:
+      PGHOST: app_database
     ports:
       - "3002:3002"
-    environment:
-      PGHOST: postgres://app_database:5432
+    networks:
+      - database
     depends_on:
       - app_database
