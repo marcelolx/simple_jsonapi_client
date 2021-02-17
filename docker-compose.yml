@@ -4,8 +4,7 @@ services:
   jsonapi_app_spec:
     build: ./spec/jsonapi_app
     entrypoint: |
-      /bin/sh -c "RAILS_ENV=development bundle exec rails db:setup"
-      /bin/sh -c "RAILS_ENV=development bundle exec rails s"
+      /bin/sh -c "RAILS_ENV=development bundle exec rails db:setup && bundle exec rails s"
     volumes:
       - ./spec/jsonapi_app:/jsonapi_app
       - /jsonapi_app/tmp/
