@@ -8,7 +8,7 @@ begin
   response = http.request_get('/')
   response_code = 0 if response.success?
 rescue Errno::ECONNREFUSED => _e
-  response_code = 1
+  response_code = 124
 end
 
 exit response_code
