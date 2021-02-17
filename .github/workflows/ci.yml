@@ -52,11 +52,23 @@ jobs:
       - name: Setup project
         run: bin/setup
 
-      - name: Wait jsonapi app setup finishes
-        run: sleep 10
-
-      - name: Check container is running
+      - name: check docker ps
         run: docker ps
 
+      - name: Wait jsonapi app setup finishes
+        run: bin/wait_for_it localhost:3000 -t 30 --
+
+      - name: check docker ps
+        run: docker ps
+
+      - name: Check jsonapi app is running
+        run: |
+          bin/check_jsonapi_app_is_running
+          script_val=$?
+          if [ $val == 2 ] 
+          then
+            exit 1 
+          fi
+          
       - name: Run tests
         run: API_URL=localhost bundle exec rspec

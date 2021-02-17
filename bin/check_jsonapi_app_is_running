@@ -1,0 +1,14 @@
+#!/usr/bin/env ruby
+
+require 'net/http'
+require 'ostruct'
+
+http = Net::HTTP.new('localhost', 3000)
+begin
+  response = http.request_get('/')
+  response_code = 1 if response.success?
+rescue Errno::ECONNREFUSED => _e
+  response_code = 2
+end
+
+exit response_code

@@ -4,4 +4,4 @@ IFS=$'\n\t'
 set -vx
 
 docker-compose build
-docker-compose up -d
+docker-compose up
