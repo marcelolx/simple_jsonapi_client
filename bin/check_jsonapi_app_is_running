@@ -6,9 +6,9 @@ require 'ostruct'
 http = Net::HTTP.new('localhost', 3000)
 begin
   response = http.request_get('/')
-  response_code = 1 if response.success?
+  response_code = 0 if response.success?
 rescue Errno::ECONNREFUSED => _e
-  response_code = 2
+  response_code = 1
 end
 
 exit response_code
