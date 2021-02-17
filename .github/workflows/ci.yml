@@ -63,6 +63,9 @@ jobs:
       - name: check docker ps
         run: docker ps
 
+      - name: docker logs
+        run: docker-compose logs
+
       - name: Check jsonapi app is running
         run: |
           bin/check_jsonapi_app_is_running
