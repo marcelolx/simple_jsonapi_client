@@ -3,7 +3,7 @@
 require 'net/http'
 require 'ostruct'
 
-http = Net::HTTP.new('0.0.0.0', 3000)
+http = Net::HTTP.new('localhost', 3000)
 begin
   response = http.request_get('/')
   response_code = 0 if response.success?

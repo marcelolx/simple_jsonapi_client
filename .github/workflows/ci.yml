@@ -50,7 +50,9 @@ jobs:
           echo 'gem: --no-document' >> ~/.gemrc
 
       - name: Setup project
-        run: bin/setup
+        run: |
+          bin/setup
+          sleep 5
 
       - name: check docker ps
         run: docker ps
@@ -69,6 +71,6 @@ jobs:
           then
             exit 1 
           fi
-          
+
       - name: Run tests
         run: API_URL=localhost bundle exec rspec
