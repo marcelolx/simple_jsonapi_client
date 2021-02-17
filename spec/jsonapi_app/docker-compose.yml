@@ -3,10 +3,10 @@ version: '3.8'
 services:
   jsonapi_app_spec:
     build: .
-    entrypoint: /bin/sh -c "RAILS_ENV=development bundle exec rails s"
+    entrypoint: /bin/sh -c "RAILS_ENV=development bundle exec rails db:setup && bundle exec rails s"
     volumes:
       - /jsonapi_app/tmp/
-    command: tail -f /dev/null
+    command: /bin/sh -c "RAILS_ENV=development bundle exec rails s"
     ports:
       - "3000:3000"
     environment:

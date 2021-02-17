@@ -8,5 +8,3 @@ ADD Gemfile /jsonapi_app/Gemfile
 ADD Gemfile.lock /jsonapi_app/Gemfile.lock
 RUN bundle install
 ADD . /jsonapi_app
-
-RUN RAILS_ENV=development bundle exec rails db:setup
