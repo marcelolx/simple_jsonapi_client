@@ -64,9 +64,7 @@ jobs:
         run: docker ps
 
       - name: docker logs
-        run: |
-          cd spec/jsonapi_app
-          docker-compose logs
+        run: cd spec/jsonapi_app && docker-compose logs
 
       - name: Check jsonapi app is running
         run: |
