@@ -63,5 +63,14 @@ jobs:
       - name: check docker ps
         run: docker ps
 
+      - name: Check jsonapi app is running
+        run: |
+          bin/check_jsonapi_app_is_running
+          script_val=$?
+          if [ $val == 2 ] 
+          then
+            exit 1 
+          fi
+
       - name: Run tests
         run: API_URL=localhost bundle exec rspec

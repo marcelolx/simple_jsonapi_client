@@ -3,8 +3,9 @@
 require 'net/http'
 require 'ostruct'
 
-http = Net::HTTP.new('localhost', 3000)
 begin
+  http = Net::HTTP.new('localhost', 3000)
+  http.use_ssl = false
   response = http.request_get('/')
   response_code = 0 if response.success?
 rescue Errno::ECONNREFUSED => _e
