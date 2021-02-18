@@ -5,4 +5,4 @@ set -vx
 
 cd spec/jsonapi_app
 docker-compose build
-docker-compose up
+docker-compose up -d

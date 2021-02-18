@@ -6,7 +6,7 @@ services:
     entrypoint: /bin/sh -c "RAILS_ENV=development bundle exec rails db:setup && bundle exec rails s"
     volumes:
       - /jsonapi_app/tmp/
-    command: /bin/sh -c "RAILS_ENV=development echo "run rails" && bundle exec rails s"
+    command: /bin/sh -c "RAILS_ENV=development bin/rails s -b 0.0.0.0"
     ports:
       - "3000:3000"
     environment:
