@@ -53,7 +53,7 @@ jobs:
         run: cd spec/jsonapi_app && docker-compose build
 
       - name: Setup database
-        run: cd spec/jsonapi_app && docker-compose run --rm jsonapi_app_spec bundle exec rails db:setup
+        run: cd spec/jsonapi_app && docker-compose run -d --rm jsonapi_app_spec bundle exec rails db:setup
 
       - name: Run jsonapi_app project
         run: cd spec/jsonapi_app && docker-compose up -d
