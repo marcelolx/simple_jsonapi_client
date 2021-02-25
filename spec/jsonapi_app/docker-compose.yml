@@ -3,10 +3,10 @@ version: '3.8'
 services:
   jsonapi_app_spec:
     build: .
-    entrypoint: /bin/sh -c "tail -f /dev/null"
+    entrypoint: /bin/sh -c "RAILS_ENV=development bin/setup"
     volumes:
       - /jsonapi_app/tmp/
-    command: /bin/sh -c "RAILS_ENV=development bin/setup"
+    command: /bin/sh -c "tail -f /dev/null"
     ports:
       - "3000:3000"
     environment:
