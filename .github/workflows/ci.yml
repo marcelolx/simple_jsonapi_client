@@ -49,10 +49,14 @@ jobs:
         run: |
           echo 'gem: --no-document' >> ~/.gemrc
 
-      - name: Setup project
-        run: |
-          bin/setup
-          sleep 5
+      - name: Build container
+        run: cd spec/jsonapi_app && docker-compose build
+
+      - name: Setup database
+        run: cd spec/jsonapi_app && docker-compose run --rm jsonapi_app_spec bundle exec rails db:setup
+
+      - name: Run jsonapi_app project
+        run: cd spec/jsonapi_app && docker-compose up -d
 
       - name: check docker ps
         run: docker ps
