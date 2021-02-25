@@ -5,4 +5,5 @@ set -vx
 
 cd spec/jsonapi_app
 docker-compose build
+docker-compose run --rm jsonapi_app_spec bundle exec rails db:setup
 docker-compose up
