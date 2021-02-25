@@ -6,7 +6,7 @@ services:
     entrypoint: /bin/sh -c "RAILS_ENV=development bin/setup"
     volumes:
       - /jsonapi_app/tmp/
-    command: /bin/sh -c "tail -f /dev/null"
+    command: /bin/sh -c "RAILS_ENV=development bin/rails s"
     ports:
       - "3000:3000"
     environment:
