@@ -57,6 +57,9 @@ jobs:
       - name: check docker ps
         run: docker ps
 
+      - name: docker logs
+        run: cd spec/jsonapi_app && docker-compose logs
+
       - name: Wait jsonapi app setup finishes
         run: bin/wait_for_it localhost:3000 -t 30 --
 
